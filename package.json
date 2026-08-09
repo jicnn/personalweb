@@ -11,7 +11,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "postbuild": "scripts/postbuild.js",
+    "postbuild": "node scripts/postbuild.js",
     "purge:cloudflare": "node scripts/purgeCloudflareCache.js",
     "check": "npm run check:astro && npm run check:type && npm run check:eslint && npm run check:prettier",
     "check:astro": "astro check",
