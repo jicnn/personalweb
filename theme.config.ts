@@ -4,65 +4,42 @@ import type { ThemeConfig } from './types/theme-config.d.ts';
 // The `with { type: 'json' }` import attribute is required so this file can also be
 // imported from a plain ESM context (e.g. `ec.config.mjs`, which Node loads directly).
 import enStrings from './src/i18n/en.json' with { type: 'json' };
-import deStrings from './src/i18n/de.json' with { type: 'json' };
-import frStrings from './src/i18n/fr.json' with { type: 'json' };
-import esStrings from './src/i18n/es.json' with { type: 'json' };
 
 export const themeConfig: ThemeConfig = {
-  // `import.meta.env?.` is guarded because this file is also imported from `ec.config.mjs`,
-  // which Node loads as plain ESM where `import.meta.env` is not defined (only Vite injects it).
-  site: import.meta.env?.SITE_OVERRIDE || 'https://astro-stardrive.com',
-  primaryColor: '#f26430', // mind to also update the Tailwind config if you change this!
+  site: import.meta.env?.SITE_OVERRIDE || 'https://personalweb-jicnn.vercel.app',
+  primaryColor: '#f26430',
   themeColor: '#50168a',
   generateWebmanifest: true,
-  name: 'Astro Stardrive',
-  shortName: 'Stardrive',
+  name: 'Jicnn Tech',
+  shortName: 'Jicnn',
   darkMode: true,
   robots: import.meta.env?.ROBOTS || 'index, follow',
-  xHandle: 'example',
+  xHandle: 'jicnn_tech',
 
-  // Structured data
   author: {
     type: 'Person',
-    name: 'John Doe',
-    url: 'https://en.wikipedia.org/wiki/John_Doe',
+    name: 'Jicnn',
+    url: 'https://github.com/jicnn',
     image: '',
   },
   publisher: {
-    type: 'Organization',
-    name: 'ACME Inc.',
-    url: 'https://en.wikipedia.org/wiki/Acme_Corporation',
+    type: 'Person',
+    name: 'Jicnn',
+    url: 'https://github.com/jicnn',
     image: '',
   },
 
   // I18n
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'de', 'fr', 'es'],
+    locales: ['en'],
     languages: {
       en: 'English',
-      de: 'Deutsch',
-      fr: 'Français',
-      es: 'Español',
     },
     languageModules: {
       en: enStrings,
-      de: deStrings,
-      fr: frStrings,
-      es: esStrings,
     },
-    translatedStructuredData: {
-      de: {
-        author: {
-          name: 'Max Mustermann',
-          url: 'https://de.wikipedia.org/wiki/Mustermann#Max_Mustermann',
-        },
-        publisher: {
-          name: 'ACME',
-          url: 'https://de.wikipedia.org/wiki/ACME',
-        },
-      },
-    },
+    translatedStructuredData: {},
   },
 
   // md(x) code block rendering
@@ -82,45 +59,43 @@ export const themeConfig: ThemeConfig = {
     tocMaxDepth: 3,
     defaults: {
       author: {
-        name: 'Jane Doe',
-        url: 'https://en.wikipedia.org/wiki/Jane_Doe_(disambiguation)',
+        name: 'Jicnn',
+        url: 'https://github.com/jicnn',
       },
     },
     social: {
-      // default values - can be overridden at the Single component level
-      xHandle: 'example', // to be added as "via @handle" in the tweet
+      xHandle: 'jicnn_tech',
       buttons: {
         email: true,
-        facebook: true,
-        hackernews: true,
-        linkedin: true,
+        facebook: false,
+        hackernews: false,
+        linkedin: false,
         pinterest: false,
-        reddit: true,
+        reddit: false,
         telegram: false,
         x: true,
         whatsapp: false,
       },
       buttonsSmallScreen: {
         email: true,
-        facebook: true,
+        facebook: false,
         hackernews: false,
-        linkedin: true,
+        linkedin: false,
         pinterest: false,
-        reddit: true,
-        telegram: true,
+        reddit: false,
+        telegram: false,
         x: true,
-        whatsapp: true,
+        whatsapp: false,
       },
     },
   },
 
-  // promotion settings
   promotions: {
-    newsletterSignup: 'footer',
-    footerBanner: true,
-    navAd: true,
-    topBanner: true,
-    heroChip: true,
+    newsletterSignup: false,
+    footerBanner: false,
+    navAd: false,
+    topBanner: false,
+    heroChip: false,
   },
 
   // Collections listed here will be rendered on-demand (SSR) instead of prerendered.
@@ -140,7 +115,7 @@ export const themeConfig: ThemeConfig = {
   // LLM and coding assistant settings
   llms: {
     autoGeneration: true,
-    intro: 'Stardrive is a boilerplate and template for Astro.js. It is build to be a alsmost all batteries included starting point for all kinds of content driven websites, like blogs, documentation sites, knowledge bases, or even marketing sites. It is also optimized for being used by and with LLMs and coding assistants to create bullet proofed websites automatically.',
+    intro: 'Jicnn Tech - A personal tech blog and technical support service platform. Sharing knowledge about software development, programming, and technology.',
     excludePagesPattern: ['/integration/**'],
     includePages: [],
     addArticles: 'selected',
@@ -148,5 +123,5 @@ export const themeConfig: ThemeConfig = {
     addFAQ: 'all',
   },
 
-  askAiTrigger: 'I am evaluating the Astro Stardrive boilerplate (github.com/peltmonger/stardrive) for my website. Provide a detailed analysis of its features, strengths, and weaknesses. Can you help me using it? How do I get started?',
+  askAiTrigger: '',
 };

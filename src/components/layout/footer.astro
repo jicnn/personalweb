@@ -19,8 +19,8 @@ const t = useTranslations(locale);
 
 const promptLocaleAdd = locale !== 'en' ? ` - Translate your answer into "${locale}" language` : '';
 
-const githubUrl: string|undefined = 'https://github.com/peltmonger/stardrive';
-const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmonger';
+const githubUrl: string|undefined = 'https://github.com/jicnn';
+const linkedinUrl: string|undefined = '';
 ---
 
 <footer role="contentinfo" class="from-secondary-dark bg-linear-to-t to-stone-900 pt-14">
@@ -97,5 +97,6 @@ const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmong
       {themeConfig.darkMode && <LightModeSwitch label={t('labels.change-light-mode')} />}
     </div>
     <LegalNav {locale} />
+    <a href="https://github.com/peltmonger/stardrive" target="_blank" rel="noopener" class="text-text-dark/60 hover:text-text-dark text-xs no-underline">Powered by Stardrive</a>
   </div>
 </footer>
