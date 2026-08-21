@@ -11,7 +11,6 @@ import { externalLinking } from './src/plugins/external-linking';
 import { rehypeYoutubePlugin } from './src/plugins/youtube-embed';
 import { themeConfig } from './theme.config';
 import { setOnDemandPrerender, getOnDemandSitemapPages } from './src/utils/on-demand-render';
-import cloudflare from '@astrojs/cloudflare';
 
 // i18n config for sitemap integration
 export const sitemap_i18n = {
@@ -66,17 +65,7 @@ const svgoConfig: Config = {
 // https://astro.build/config
 export default defineConfig({
   site: themeConfig.site,
-  // Astro projects are intended to deliver static pages and not to be fully rendered on-demand!
-  // You can use 'server' for SSR, see https://docs.astro.build/en/guides/on-demand-rendering/, but it is not recommended.
-  // Best approach: Use static and opt-out some pages from prerendering if needed and supported by your hosting solution (https://docs.astro.build/en/reference/routing-reference/#per-page-override).
-  // You can find an option in the themes.config.ts to mark content collections as dynamic, which will then render them on-demand instead of prerendering them.
   output: 'static',
-  session: {
-    // remove if you require this feature; see https://docs.astro.build/en/reference/session-driver-reference/ for details
-    driver: {
-      entrypoint: 'unstorage/drivers/null',
-    },
-  },
   trailingSlash: 'never',
 
   build: {
@@ -93,33 +82,11 @@ export default defineConfig({
   },
 
   experimental: {
-    // Always include svg images as components or <img> tags, never via Astro's <Image> component. The latter one is not supported by Cloudflare and might also break in other scenarios.
-    // To auto-optimize SVGs, we use the svgo optimizer. If your svg files look strange, you might want to tweak its configuration or even disable it.
-    // See https://docs.astro.build/en/reference/experimental-flags/svg-optimization/
     svgOptimizer: svgoOptimizer(svgoConfig),
   },
 
   vite: {
-    plugins: [
-      tailwindcss(),
-      // The following are workarounds for issues with the Cloudflare adapter and its on-demand SSR runtime (workerd).
-      // See https://docs.astro.build/en/guides/integrations-guide/cloudflare/#some-dependencies-might-need-to-be-pre-compiled for details.
-      //
-      // Custom Plugin: Neutralize `createRequire(import.meta.url)` in fdir (used by astro/loaders -> tinyglobby -> picomatch) to avoid "The argument 'path' ... Received 'undefined'" errors in workerd.
-      {
-        name: 'neutralize-create-require-for-workerd',
-        enforce: 'post',
-        apply: 'build',
-        renderChunk(code) {
-          if (!code.includes('createRequire(import.meta.url)')) return null;
-          return {
-            code: code.replaceAll('createRequire(import.meta.url)', '() => ({ resolve: () => { throw new Error("no require"); }, })'),
-            map: null,
-          };
-        },
-      },
-    ],
-    // Pre-compilation of dependencies that are not compatible with the Cloudflare workerd runtime (on-demand SSR) or that are ESM-only and not pre-bundled by Vite.
+    plugins: [tailwindcss()],
     optimizeDeps: {
       include: ['debug', 'ms', 'reading-time', 'fdir > picomatch', 'expressive-code > postcss'],
     },
@@ -165,11 +132,9 @@ export default defineConfig({
     icon({
       svgoOptions: svgoConfig,
     }),
-    // Expressive Code options live in `ec.config.mjs` in the project root, so both the
-    // Markdown integration and the `<Code>` component share the same config.
     astroExpressiveCode(),
     (await import('astro-compress')).default({
-      CSS: false, // disabled: astro-compress's CSS minifier (csso) strips Tailwind v4's modern `@media (width >= ...)` range syntax, which removes all responsive breakpoints and makes the site render mobile-only. Vite already minifies CSS safely.
+      CSS: false,
       HTML: {
         'html-minifier-terser': {
           removeAttributeQuotes: false,
@@ -180,9 +145,4 @@ export default defineConfig({
       },
     }),
   ],
-
-  adapter: cloudflare({
-    imageService: 'cloudflare', // mind to activate Media > Images > Transformations in the Cloudflare dashboard for your Zone/Worker!
-    prerenderEnvironment: 'node', // only applies to prerendering at build time. On-demand SSR always uses the Cloudflare workerd runtime. Node is currently required here because some render-time dependencies call Node-only path/url APIs that are not available in workerd's isolated runtime.
-  }),
 });

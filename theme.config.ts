@@ -123,8 +123,9 @@ export const themeConfig: ThemeConfig = {
     heroChip: true,
   },
 
-  // for the purpose of this demo, we render intergration options on-demand instead of prerendering them.
-  onDemandRenderedCollections: ['integration_options'],
+  // Collections listed here will be rendered on-demand (SSR) instead of prerendered.
+  // Set to [] for a fully static build (suitable for Vercel and other static hosts).
+  onDemandRenderedCollections: [],
 
   // you can also dynamically integrate events from your Add to Calendar PRO account (https://add-to-calendar-pro.com/), having your API key set as environment variable ADD_TO_CALENDAR_PRO_API_KEY.
   dynamicEvents: {
