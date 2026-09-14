@@ -2,13 +2,13 @@
 import Layout from "@layouts/default.astro";
 import Headline from "@components/headline.astro";
 import ContactForm from "@components/contact/contact-form.astro";
-import ContactMap from "@components/contact/contact-map.astro";
 import { Icon } from "astro-icon/components";
-import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { useTranslations } from "@utils/i18n";
 import { themeConfig } from '~/theme.config';
 
 const locale = themeConfig.i18n.defaultLocale;
 const t = useTranslations(locale);
+const contactEmail = "3551310037@qq.com";
 ---
 
 <Layout title={t('pages.contact.title')} description={t('pages.contact.description')}>
@@ -17,33 +17,22 @@ const t = useTranslations(locale);
   <p class="mb-10 max-w-2xl text-lg text-stone-600 dark:text-stone-300">{t('pages.contact.intro-text')}</p>
 
   <div class="flex flex-col justify-between gap-12 lg:flex-row lg:gap-16">
-    <!-- Contact form / Docs -->
+    <!-- Contact form -->
     <div class="flex max-w-xl flex-col gap-12 lg:flex-1">
       <ContactForm {locale} />
-      <div class="flex flex-col gap-3">
-        <h3 class="text-lg font-semibold">{t('pages.contact.docs-heading')}</h3>
-        <p>
-          {t('pages.contact.docs-text')}<br />
-          <a href={getLocaleUrl('docs', locale)} class="flex items-center gap-1 self-start hover:gap-2">
-            <span>{t('pages.contact.docs-cta')}</span>
-            <Icon name="heroicons:arrow-right" class="h-4 w-4" aria-hidden="true" />
-          </a>
-        </p>
-      </div>
     </div>
 
-    <!-- Address -->
+    <!-- Direct contact -->
     <aside class="flex flex-col gap-8 border-t border-stone-300 pt-12 lg:w-80 lg:shrink-0 lg:border-t-0 lg:pt-0 dark:border-stone-700">
-      <div class="flex flex-col gap-1 text-stone-600 dark:text-stone-300">
-        <h3 class="text-lg font-semibold">{t('pages.contact.address-heading')}</h3>
-        <address class="pt-1 text-sm not-italic">
-          <strong>ACME Inc.</strong><br />
-          Beta-Str. 10a<br />
-          85774 Unterf&ouml;hring<br />
-          Germany
-        </address>
-        <ContactMap {locale} />
+      <div class="flex flex-col gap-3 rounded border border-stone-300 bg-stone-100 p-4 dark:border-stone-700 dark:bg-stone-800">
+        <h3 class="text-lg font-semibold">Email</h3>
+        <p class="text-sm text-stone-600 dark:text-stone-300">Prefer email? Reach me directly:</p>
+        <a href={`mailto:${contactEmail}`} class="flex items-center gap-2 text-primary no-underline hover:underline dark:text-primary-light">
+          <Icon name="heroicons:envelope" class="h-5 w-5 shrink-0" aria-hidden="true" />
+          <span class="break-all">{contactEmail}</span>
+        </a>
       </div>
     </aside>
   </div>
 </Layout>
+

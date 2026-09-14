@@ -2,9 +2,8 @@
 import Layout from "@layouts/default.astro";
 import Headline from "@components/headline.astro";
 import ContactForm from "@components/contact/contact-form.astro";
-import ContactMap from "@components/contact/contact-map.astro";
 import { Icon } from "astro-icon/components";
-import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { useTranslations } from "@utils/i18n";
 import { themeConfig } from '~/theme.config';
 
 export function getStaticPaths() {
@@ -17,6 +16,7 @@ export function getStaticPaths() {
 
 const locale = Astro.params.lang;
 const t = useTranslations(locale);
+const contactEmail = "3551310037@qq.com";
 ---
 
 <Layout title={t('pages.contact.title')} description={t('pages.contact.description')} {locale}>
@@ -30,27 +30,17 @@ const t = useTranslations(locale);
       <ContactForm {locale} />
     </div>
 
-    <!-- Docs / address -->
+    <!-- Direct contact -->
     <aside class="flex flex-col gap-8 lg:w-80 lg:shrink-0">
       <div class="flex flex-col gap-3 rounded border border-stone-300 bg-stone-100 p-4 dark:border-stone-700 dark:bg-stone-800">
-        <h3 class="font-semibold">{t('pages.contact.docs-heading')}</h3>
-        <p class="text-sm text-stone-600 dark:text-stone-300">{t('pages.contact.docs-text')}</p>
-        <a href={getLocaleUrl('docs', locale)} class="btn-primary btn-primary-small self-start">
-          <Icon name="heroicons:book-open" class="h-4 w-4" aria-hidden="true" />
-          <span>{t('pages.contact.docs-cta')}</span>
+        <h3 class="font-semibold">电子邮箱</h3>
+        <p class="text-sm text-stone-600 dark:text-stone-300">也可以直接发邮件给我：</p>
+        <a href={`mailto:${contactEmail}`} class="flex items-center gap-2 text-primary no-underline hover:underline dark:text-primary-light">
+          <Icon name="heroicons:envelope" class="h-5 w-5 shrink-0" aria-hidden="true" />
+          <span class="break-all">{contactEmail}</span>
         </a>
-      </div>
-
-      <div class="flex flex-col gap-1">
-        <h3 class="font-semibold">{t('pages.contact.address-heading')}</h3>
-        <address class="text-sm text-stone-600 not-italic dark:text-stone-300">
-          <strong>ACME Inc.</strong><br />
-          Beta-Str. 10a<br />
-          85774 Unterf&ouml;hring<br />
-          Germany
-        </address>
-        <ContactMap {locale} />
       </div>
     </aside>
   </div>
 </Layout>
+

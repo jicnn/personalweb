@@ -52,8 +52,9 @@ const useCases: UseCase[] = [
   { slug: "usecase-listing", icon: "heroicons:rectangle-group" },
 ];
 
-const docsUrl = getLocaleUrl("docs", locale);
-const featuresUrl = getLocaleUrl("features", locale);
+const contactEmail = "3551310037@qq.com";
+const contactUrl = `mailto:${contactEmail}`;
+const blogUrl = getLocaleUrl("blog", locale);
 ---
 
 <section class="home-content flex flex-col overflow-x-clip">
@@ -193,12 +194,15 @@ const featuresUrl = getLocaleUrl("features", locale);
         <p class="max-w-xl text-stone-600 dark:text-stone-300">
           {t('home-content.cta-sub')}
         </p>
+        <a href={contactUrl} class="text-lg font-semibold text-primary no-underline hover:underline dark:text-primary-light">
+          {contactEmail}
+        </a>
         <div class="mt-2 flex flex-wrap items-center justify-center gap-4">
-          <a href={docsUrl} class="btn-primary group">
+          <a href={contactUrl} class="btn-primary group">
             {t('home-content.cta-primary')}
             <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
           </a>
-          <a href={featuresUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
+          <a href={blogUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
             <span>{t('home-content.cta-secondary')}</span>
             <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
           </a>
