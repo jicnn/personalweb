@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getLocaleUrl } from "@utils/i18n";
+import { getLocaleUrl, useTranslations } from "@utils/i18n";
 import MainNav from "@components/layout/nav/main-nav.astro";
 import Logo from '@images/logo.svg';
 import LogoWhite from '@images/logo-white.svg';
@@ -31,6 +31,7 @@ interface Props {
 }
 
 const { locale, button, tabIndex = 0, shrink = true, isHome, ctaButton, github, logoTheme } = Astro.props as Props;
+const t = useTranslations(locale);
 ---
 
 <div data-shrink={`${shrink}`} class:list={['mx-6 flex h-20 items-center justify-between gap-10 lg:container lg:mx-auto', shrink && 'header-content-inner transition-[height] duration-300']}>
@@ -65,6 +66,9 @@ const { locale, button, tabIndex = 0, shrink = true, isHome, ctaButton, github, 
           </a>
         )
       }
+      <button type="button" data-language-menu-trigger aria-label={t('i18n.select-language')} class="block cursor-pointer" tabindex={tabIndex}>
+        <Icon name="heroicons:language" class="h-6 w-6" />
+      </button>
       {
         github && (
           <a href={github} target="_blank" rel="noopener" class="hidden lg:block" tabindex={tabIndex}>

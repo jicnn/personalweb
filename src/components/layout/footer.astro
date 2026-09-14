@@ -87,7 +87,7 @@ const linkedinUrl: string|undefined = '';
     <div class="flex items-center gap-6 lg:gap-4">
       {
         !isError ? (
-          <button id="open-language-menu" aria-label={t('i18n.select-language')} class="btn-subtle rounded-full p-1.5">
+          <button id="open-language-menu" data-language-menu-trigger aria-label={t('i18n.select-language')} class="btn-subtle rounded-full p-1.5">
             <Icon name="heroicons:language" class="h-4 w-4" />
           </button>
         ) : (

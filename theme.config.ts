@@ -4,6 +4,7 @@ import type { ThemeConfig } from './types/theme-config.d.ts';
 // The `with { type: 'json' }` import attribute is required so this file can also be
 // imported from a plain ESM context (e.g. `ec.config.mjs`, which Node loads directly).
 import enStrings from './src/i18n/en.json' with { type: 'json' };
+import zhStrings from './src/i18n/zh.json' with { type: 'json' };
 
 export const themeConfig: ThemeConfig = {
   site: import.meta.env?.SITE_OVERRIDE || 'https://personalweb-jicnn.vercel.app',
@@ -32,12 +33,14 @@ export const themeConfig: ThemeConfig = {
   // I18n
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'zh'],
     languages: {
       en: 'English',
+      zh: '中文',
     },
     languageModules: {
       en: enStrings,
+      zh: zhStrings,
     },
     translatedStructuredData: {},
   },

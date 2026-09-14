@@ -49,7 +49,7 @@ const languageUrls = await Promise.all(
                 </>
               ) : (
                 <>
-                  <a href={languageUrls.find((url) => url.code === languageCode)?.url} data-astro-reload class="p-2 text-xl no-underline">
+                  <a href={languageUrls.find((url) => url.code === languageCode)?.url} data-lang={languageCode} data-astro-reload class="p-2 text-xl no-underline">
                     {label}
                   </a>
                 </>
@@ -95,13 +95,16 @@ const languageUrls = await Promise.all(
     languageSwitcher.classList.add('hidden');
     languageSwitcher.classList.remove('fixed');
     document.body.classList.remove('overflow-y-hidden');
-    // Return focus to the trigger button in the footer
-    (document.getElementById('open-language-menu') as HTMLElement | null)?.focus();
+    // Return focus to the trigger button that opened the menu
+    lastLanguageTrigger?.focus();
   };
 
-  const openLanguageSelect = () => {
+  let lastLanguageTrigger: HTMLElement | null = null;
+
+  const openLanguageSelect = (event: Event) => {
     const languageSwitcher = document.getElementById('language-switcher');
     if (!languageSwitcher) return;
+    lastLanguageTrigger = event.currentTarget as HTMLElement;
     languageSwitcher.classList.add('fixed');
     languageSwitcher.classList.remove('hidden');
     document.body.classList.add('overflow-y-hidden');
@@ -111,19 +114,29 @@ const languageUrls = await Promise.all(
     if (event.key === 'Escape') closeLanguageSelect();
   };
 
+  const setLanguageCookie = (event: Event) => {
+    const lang = (event.currentTarget as HTMLElement).dataset.lang;
+    if (lang) {
+      // Persist the explicit choice so the geo-language middleware respects it
+      document.cookie = `site_lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+    }
+  };
+
   const setupLanguageSelect = () => {
     // Keep setup idempotent: this runs immediately for regular navigation and
     // again after each ClientRouter navigation.
     cleanupLanguageSelect();
     document.getElementById('close-language-menu')?.addEventListener('click', closeLanguageSelect);
-    document.getElementById('open-language-menu')?.addEventListener('click', openLanguageSelect);
+    document.querySelectorAll<HTMLElement>('[data-language-menu-trigger]').forEach((el) => el.addEventListener('click', openLanguageSelect));
+    document.querySelectorAll<HTMLElement>('#language-switcher a[data-lang]').forEach((el) => el.addEventListener('click', setLanguageCookie));
     document.addEventListener('keyup', handleKeyup);
     document.addEventListener('keydown', trapFocus);
   };
 
   const cleanupLanguageSelect = () => {
     document.getElementById('close-language-menu')?.removeEventListener('click', closeLanguageSelect);
-    document.getElementById('open-language-menu')?.removeEventListener('click', openLanguageSelect);
+    document.querySelectorAll<HTMLElement>('[data-language-menu-trigger]').forEach((el) => el.removeEventListener('click', openLanguageSelect));
+    document.querySelectorAll<HTMLElement>('#language-switcher a[data-lang]').forEach((el) => el.removeEventListener('click', setLanguageCookie));
     document.removeEventListener('keyup', handleKeyup);
     document.removeEventListener('keydown', trapFocus);
   };
