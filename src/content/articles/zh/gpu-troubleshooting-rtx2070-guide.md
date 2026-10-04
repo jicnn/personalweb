@@ -171,7 +171,7 @@ A 面和 B 面的 PCIe 数据接口与 GPU 核心有 32 路直连数据总线。
 
 以下是 RTX 2070 类似板卡的背面视图，可以对照查找背面的贴片元件、焊点和测试点：
 
-![RTX 2070 GPU 背面 PCB 图](https://www.techpowerup.com/review/evga-geforce-rtx-2070-super-ko/images/back.jpg)
+<img src="https://www.techpowerup.com/review/evga-geforce-rtx-2070-super-ko/images/back.jpg" alt="RTX 2070 GPU 背面 PCB 图" loading="lazy" referrerpolicy="no-referrer" />
 
 > 背面通常布满了贴片电容（去耦用途），也是测量显存数据线阻值（通过耦合电容）和检查焊点（是否有虚焊、连锡）的主要区域。
 
@@ -389,7 +389,7 @@ PWM 控制器以高频（300kHz - 数 MHz）交替开关这两个管子，通过
 
 以下是 RTX 2070 类似板卡的正面 PCB 视图：
 
-![RTX 2070 GPU 正面 PCB 图](https://www.techpowerup.com/forums/attachments/front-jpg.127463/)
+<img src="https://www.techpowerup.com/forums/attachments/front-jpg.127463/" alt="RTX 2070 GPU 正面 PCB 图" loading="lazy" referrerpolicy="no-referrer" />
 
 ---
 

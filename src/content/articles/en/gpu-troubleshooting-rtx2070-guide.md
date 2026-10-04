@@ -169,7 +169,7 @@ For the NVIDIA RTX 2070 Founders Edition (PG160 PCB), the functional areas are:
 
 The following shows the backside of a similar RTX 2070 class board:
 
-![RTX 2070 GPU Backside PCB](https://www.techpowerup.com/review/evga-geforce-rtx-2070-super-ko/images/back.jpg)
+<img src="https://www.techpowerup.com/review/evga-geforce-rtx-2070-super-ko/images/back.jpg" alt="RTX 2070 GPU Backside PCB" loading="lazy" referrerpolicy="no-referrer" />
 
 > The backside is typically covered with SMD capacitors (decoupling) and is the primary area for measuring memory data lane resistance (via coupling capacitors) and checking for solder bridges or cold joints.
 
@@ -387,7 +387,7 @@ Search on repair forums (ChinaFix, TechPowerUp, Vinafix, etc.):
 
 The following shows the front side of a similar RTX 2070 class board:
 
-![RTX 2070 GPU Front PCB](https://www.techpowerup.com/forums/attachments/front-jpg.127463/)
+<img src="https://www.techpowerup.com/forums/attachments/front-jpg.127463/" alt="RTX 2070 GPU Front PCB" loading="lazy" referrerpolicy="no-referrer" />
 
 ---
 
